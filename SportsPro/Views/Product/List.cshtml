@@ -1,0 +1,22 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "Manage Products";
+}
+
+<table>
+    <thead>Code</thead>
+    <thead>Name</thead>
+    <thead>Price</thead>
+    <thead>Release Date</thead>
+        <tbody>
+        @foreach (var products in Model)
+        {
+            <tr>
+                <td>@products.ProductCode</td>
+                <td>@products.Name</td>
+                <td>@products.YearlyPrice</td>
+                <td>@products.ReleaseDate</td>
+            </tr>
+        }
+        </tbody>
+</table>
