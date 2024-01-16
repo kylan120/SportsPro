@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using SportsPro.Models;
 using System.Linq;
 
