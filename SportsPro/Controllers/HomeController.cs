@@ -13,10 +13,14 @@ namespace SportsPro.Controllers
         {
             context = ctx;
         }
-        public IActionResult Index()
+        public IActionResult List()
         {
             var products = context.Products.ToList();
             return View(products);
+        }
+        public IActionResult Index()
+        {
+            return View();
         }
 
         public IActionResult About()
