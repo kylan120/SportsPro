@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsPro.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace SportsPro.Controllers
@@ -40,12 +39,12 @@ namespace SportsPro.Controllers
                     context.Technicians.Update(technician);
 
                 context.SaveChanges();
-                return RedirectToAction("List");
+                return RedirectToAction("Technician");
             }
             else
             {
                 ViewBag.Action = (technician.TechnicianID == 0) ? "Add" : "Edit";
-                return View("Edit", technician);
+                return View(technician);
             }
         }
 
@@ -61,10 +60,10 @@ namespace SportsPro.Controllers
         {
             context.Technicians.Remove(technician);
             context.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("Technician");
         }
 
-        public IActionResult List()
+        public IActionResult Technician()
         {
             var technicians = context.Technicians.ToList();
             return View(technicians);
