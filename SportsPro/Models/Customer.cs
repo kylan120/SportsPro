@@ -26,8 +26,8 @@ namespace SportsPro.Models
 		public string PostalCode { get; set; }
 
 		[Required]
-		public string CountryID { get; set; }
-		public Country Country { get; set; }
+        public string CountryID { get; set; }
+        public Country Country { get; set; }
 
 		public string Phone { get; set; }
 

@@ -17,6 +17,7 @@ namespace SportsPro.Controllers
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
+            ViewBag.Countries = context.Countries.OrderBy(c => c.Name).ToList();
             return View("Edit", new Customer());
         }
         [HttpGet]
@@ -24,6 +25,7 @@ namespace SportsPro.Controllers
         {
             ViewBag.Action = "Edit";
             var customer = context.Customers.Find(id);
+            ViewBag.Countries = context.Countries.OrderBy(c => c.Name).ToList();
             return View(customer);
         }
         [HttpPost]
@@ -43,6 +45,7 @@ namespace SportsPro.Controllers
             else
             {
                 ViewBag.Action = (customer.CustomerID == 0) ? "Add" : "Edit";
+                ViewBag.Countries = context.Countries.OrderBy(c => c.Name).ToList();
                 return View(customer);
             }
         }

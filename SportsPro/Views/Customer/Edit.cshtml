@@ -40,13 +40,15 @@
         <input asp-for="PostalCode" class="form-control" />
     </div>
 
-    <label asp-for="Country">Country</label>
-    <select asp-for="Country" class="form-control">
-        <option value="@Model.Country">@Model.Country</option>
-    </select>
-
-
-
+    <div class="form-group">
+        <label asp-for="CountryID">Country</label>
+        <select asp-for="CountryID" class="form-control">
+            <option value="">select a country</option>
+            @foreach (Country c in ViewBag.Countries)
+            {
+                <option value="@c.CountryID">@c.Name</option>
+            }
+        </select>
     <div class="form-group">
         <label asp-for="Email">Email</label>
         <input asp-for="Email" class="form-control" />
