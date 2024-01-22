@@ -6,13 +6,13 @@ namespace SportsPro.Models
     public class Incident
     {
 		public int IncidentID { get; set; }
-
-		public int CustomerID { get; set; }     // foreign key property
         [Required(ErrorMessage = "Customer is required.")]
+        public int CustomerID { get; set; }     // foreign key property
+        
         public Customer Customer { get; set; }  // navigation property
-
+		[Required(ErrorMessage ="Product is required")]
 		public int ProductID { get; set; }     // foreign key property
-        [Required(ErrorMessage = "Product is required.")]
+        
         public Product Product { get; set; }   // navigation property
 
 		public int? TechnicianID { get; set; }     // foreign key property - nullable
