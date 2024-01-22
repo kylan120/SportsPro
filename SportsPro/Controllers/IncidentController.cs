@@ -35,6 +35,24 @@ namespace SportsPro.Controllers
             return View("Edit", new Incident());
         }
 
+        [HttpPost]
+        public IActionResult Add(Incident incident)
+        {
+            if (ModelState.IsValid)
+            {
+                incident.DateOpened = DateTime.Now;
+                context.Incidents.Add(incident);
+                context.SaveChanges();
+                return RedirectToAction("List", "Incident");
+            }
+            else
+            {
+                ViewBag.Action = "Add";
+                PopulateDropdowns();
+                return View("Add", incident);
+            }
+        }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -49,22 +67,13 @@ namespace SportsPro.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (incident.IncidentID == 0)
-                {
-                    incident.DateOpened = DateTime.Now;
-                    context.Incidents.Add(incident);
-                }
-                else
-                {
-                    context.Incidents.Update(incident);
-                }
-
+                context.Incidents.Update(incident);
                 context.SaveChanges();
                 return RedirectToAction("List", "Incident");
             }
             else
             {
-                ViewBag.Action = (incident.IncidentID == 0) ? "Add" : "Edit";
+                ViewBag.Action = "Edit";
                 PopulateDropdowns();
                 return View("Edit", incident);
             }
