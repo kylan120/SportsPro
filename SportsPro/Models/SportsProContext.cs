@@ -251,7 +251,15 @@ namespace SportsPro.Models
                 }
             );
 
-
+            modelBuilder.Entity<Incident>().HasOne(i => i.Customer)
+                .WithMany(c => c.Incidents)
+                .HasForeignKey(i => i.CustomerID);
+            modelBuilder.Entity<Incident>().HasOne(i => i.Product)
+                .WithMany(p => p.Incidents)
+                .HasForeignKey(i => i.ProductID);
+            modelBuilder.Entity<Incident>().HasOne(i => i.Technician)
+                .WithMany(t => t.Incidents)
+                .HasForeignKey(i => i.TechnicianID);
             modelBuilder.Entity<Incident>().HasData(
                 new Incident
                 {

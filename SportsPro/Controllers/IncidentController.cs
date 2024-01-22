@@ -60,7 +60,7 @@ namespace SportsPro.Controllers
                 }
 
                 context.SaveChanges();
-                return RedirectToAction("List");
+                return RedirectToAction("List", "Incident");
             }
             else
             {
@@ -82,7 +82,7 @@ namespace SportsPro.Controllers
         {
             context.Incidents.Remove(incident);
             context.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("List", "Incident");
         }
 
         private void PopulateDropdowns()

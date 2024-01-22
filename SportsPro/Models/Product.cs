@@ -20,5 +20,7 @@ namespace SportsPro.Models
 		public decimal YearlyPrice { get; set; }
 
 		public DateTime ReleaseDate { get; set; } = DateTime.Now;
-	}
+
+        public ICollection<Incident> Incidents { get; set; } // navigation property
+    }
 }

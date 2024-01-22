@@ -1,0 +1,70 @@
+﻿@model Incident
+
+@{
+    string title = ViewBag.Action + " Incidents";
+    ViewBag.Title = title;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Customer.FullName">Customer</label>
+        <select asp-for="Customer.FullName" class="form-control">
+            <option value="">Specify the customer...</option>
+            @foreach (Customer c in ViewBag.Customers)
+            {
+                <option value="@c.CustomerID">@c.FullName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.Name">Product</label>
+        <select asp-for="Product.Name" class="form-control">
+            <option value="">Specify the product...</option>
+            @foreach (Product p in ViewBag.Products)
+            {
+                <option value="@p.ProductCode">@p.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Technician.Name">Technician</label>
+        <select asp-for="Technician.Name" class="form-control">
+            <option value="">Assign a technician...</option>
+            @foreach (Technician t in ViewBag.Technicians)
+            {
+                <option value="@t.TechnicianID">@t.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOpened">Date Opened</label>
+        <input asp-for="DateOpened" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateClosed">Date Closed</label>
+        <input asp-for="DateClosed" class="form-control" />
+    </div>
+
+    <input type="hidden" asp-for="IncidentID" />
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-controller="Incident" asp-action="List" class="btn btn-primary">Cancel</a>
+</form>

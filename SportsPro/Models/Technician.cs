@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SportsPro.Models
@@ -19,5 +21,6 @@ namespace SportsPro.Models
         [Phone(ErrorMessage = "Invalid phone number.")]
         public string Phone { get; set; }
 
+        public ICollection<Incident> Incidents { get; set; } // navigation property
     }
 }
