@@ -37,7 +37,7 @@ namespace SportsPro.Controllers
                else
                     context.Products.Update(product);
                      context.SaveChanges();
-                return RedirectToAction("Product", "Product");
+                return RedirectToAction("Product");
 
             }
             else
