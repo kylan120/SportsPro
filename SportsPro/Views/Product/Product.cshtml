@@ -5,6 +5,13 @@
 
 <h2>@ViewBag.Title</h2>
 
+@if (TempData.Keys.Contains("message"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["message"]
+    </h4>    
+}
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>

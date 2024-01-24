@@ -14,13 +14,13 @@ namespace SportsPro.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add() 
+        public ViewResult Add() 
         {
             ViewBag.Action = "Add";
             return View("Edit", new Product());
         }
         [HttpGet]
-        public IActionResult Edit(int id) 
+        public ViewResult Edit(int id) 
         {
             ViewBag.Action = "Edit";
             var product = context.Products.Find(id);
@@ -56,8 +56,10 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult Delete(Product product)
         {
+            TempData["message"] = product.Name + " deleted!";
             context.Products.Remove(product);
             context.SaveChanges();
+            
             return RedirectToAction("Product", "Product");
         }
 
