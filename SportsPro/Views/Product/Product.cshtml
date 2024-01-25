@@ -5,11 +5,23 @@
 
 <h2>@ViewBag.Title</h2>
 
-@if (TempData.Keys.Contains("message"))
+@if (TempData.Keys.Contains("delete"))
 {
     <h4 class="bg-info text-center text-white p-2">
-        @TempData["message"]
+        @TempData["delete"]
     </h4>    
+}
+@if (TempData.Keys.Contains("Add"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["Add"]
+    </h4>    
+}
+@if (TempData.Keys.Contains("Edit"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["Edit"]
+    </h4>
 }
 
 <table class="table table-bordered table-striped">

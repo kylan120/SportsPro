@@ -17,13 +17,15 @@ namespace SportsPro.Controllers
         public ViewResult Add() 
         {
             ViewBag.Action = "Add";
+
             return View("Edit", new Product());
         }
         [HttpGet]
-        public ViewResult Edit(int id) 
+        public IActionResult Edit(int id) 
         {
             ViewBag.Action = "Edit";
             var product = context.Products.Find(id);
+            TempData["Edit"] = product.Name + " has been edited";
             return View(product);
         }
         [HttpPost]
@@ -31,19 +33,22 @@ namespace SportsPro.Controllers
         {
             if (ModelState.IsValid)
             {
-               if (product.ProductID == 0) 
-               
+                if (product.ProductID == 0)
+
                     context.Products.Add(product);
-               else
+                else
+                   
                     context.Products.Update(product);
-                     context.SaveChanges();
+                    TempData["Add"] = product.Name + " has been added";
+                    context.SaveChanges();
+             
                 return RedirectToAction("Product");
 
             }
             else
             {
                 ViewBag.Action = (product.ProductID == 0) ? "Add": "Edit";
-                return View(product);
+               return View(product);
             }
         }
 
@@ -56,10 +61,9 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult Delete(Product product)
         {
-            TempData["message"] = product.Name + " deleted!";
+            TempData["delete"] = product.Name + " has been deleted!";
             context.Products.Remove(product);
             context.SaveChanges();
-            
             return RedirectToAction("Product", "Product");
         }
 
