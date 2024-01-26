@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SportsPro.Models
@@ -29,4 +30,20 @@ namespace SportsPro.Models
 
 		public DateTime? DateClosed { get; set; } = null;
 	}
+
+    public class IncidentManagerViewModel
+    {
+        public List<Incident> Incidents { get; set; }
+        public string Filter { get; set; }
+    }
+
+    public class AddEditIncidentViewModel
+    {
+        public List<Customer> Customers { get; set; }
+        public List<Product> Products { get; set; }
+        public List<Technician> Technicians { get; set; }
+        public Incident CurrentIncident { get; set; }
+        public string Operation { get; set; } // Indicates whether it's an Add or Edit operation
+    }
+
 }
