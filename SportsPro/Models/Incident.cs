@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SportsPro.Models
 {
     public class Incident
     {
+		
 		public int IncidentID { get; set; }
         [Required(ErrorMessage = "Customer is required.")]
         public int CustomerID { get; set; }     // foreign key property
