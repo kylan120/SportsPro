@@ -66,7 +66,7 @@ namespace SportsPro.Controllers
             TempData["delete"] = product.Name + " has been deleted!";
             context.Products.Remove(product);
             context.SaveChanges();
-            return RedirectToAction("Product", "Product");
+            return RedirectToAction("Product");
         }
 
         public ViewResult Product() 
