@@ -69,6 +69,7 @@ namespace SportsPro.Controllers
             return RedirectToAction("Product");
         }
 
+        [Route("products")]
         public ViewResult Product() 
         { 
             var products = context.Products.ToList();
