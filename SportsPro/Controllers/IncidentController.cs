@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SportsPro.Controllers
 {
-    
+
     public class IncidentController : Controller
     {
         private SportsProContext context { get; set; }
@@ -16,7 +16,8 @@ namespace SportsPro.Controllers
             context = ctx;
         }
 
-        public IActionResult Incident()
+        [Route("incidents")]
+        public IActionResult List()
         {
             var incident = context.Incidents.ToList();
             return View(incident);

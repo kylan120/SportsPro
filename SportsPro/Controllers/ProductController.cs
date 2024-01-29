@@ -24,7 +24,6 @@ namespace SportsPro.Controllers
         {
             ViewBag.Action = "Edit";
             var product = context.Products.Find(id);
-            TempData["Edit"] = product.Name + " has been edited";
             return View(product);
         }
         [HttpPost]
@@ -66,9 +65,10 @@ namespace SportsPro.Controllers
             TempData["delete"] = product.Name + " has been deleted!";
             context.Products.Remove(product);
             context.SaveChanges();
-            return RedirectToAction("Product", "Product");
+            return RedirectToAction("Product");
         }
 
+        [Route("products")]
         public ViewResult Product() 
         { 
             var products = context.Products.ToList();
