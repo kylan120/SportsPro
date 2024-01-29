@@ -24,7 +24,6 @@ namespace SportsPro.Controllers
         {
             ViewBag.Action = "Edit";
             var product = context.Products.Find(id);
-            TempData["Edit"] = product.Name + " has been edited";
             return View(product);
         }
         [HttpPost]
