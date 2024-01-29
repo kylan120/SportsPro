@@ -21,6 +21,6 @@ namespace SportsPro.Models
 
 		public DateTime ReleaseDate { get; set; } = DateTime.Now;
 
-        public ICollection<Incident> Incidents { get; set; } // navigation property
+        public ICollection<Incident> Incidents { get; set; } 
     }
 }
