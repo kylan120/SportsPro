@@ -15,106 +15,90 @@ namespace SportsPro.Controllers
         {
             context = ctx;
         }
-
-        [Route("incidents")]
+        [Route("Incident")]
         public IActionResult Incident()
         {
-            
-            var incident = context.Incidents
-                .Include(c => c.Customer).
-                Include(p => p.Product).
-                Include(t => t.Technician).ToList();
-            return View(incident);
+            var incidents = context.Incidents
+                .Include(i => i.Customer)
+                .Include(i => i.Product)
+                .Include(i => i.Technician)
+                .ToList();
+
+            return View(incidents);
         }
 
         [HttpGet]
-        public IActionResult AddOrEditIncident()
+        public IActionResult Add()
         {
-            var viewModel = new AddEditIncidentViewModel
-            {
-                Customers = context.Customers.ToList(),
-                Products = context.Products.ToList(),
-                Technicians = context.Technicians.ToList(),
-                CurrentIncident = new Incident(),
-                Operation = "Add" // Set the operation to Add
-            };
-
-            return View(viewModel);
-        }
-
-        [HttpGet]
-        public IActionResult EditIncident(int id)
-        {
-            var incident = context.Incidents.Find(id);
-            if (incident == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new AddEditIncidentViewModel
-            {
-                Customers = context.Customers.ToList(),
-                Products = context.Products.ToList(),
-                Technicians = context.Technicians.ToList(),
-                CurrentIncident = incident,
-                Operation = "Edit" // Set the operation to Edit
-            };
-
-            return View(viewModel);
+            ViewBag.Action = "Add";
+            PopulateDropdowns();
+            return View("Edit", new Incident());
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AddOrEditIncident(AddEditIncidentViewModel viewModel)
+        public IActionResult Add(Incident incident)
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.Operation == "Add")
-                {
-                    context.Incidents.Add(viewModel.CurrentIncident);
-                }
-                else if (viewModel.Operation == "Edit")
-                {
-                    context.Incidents.Update(viewModel.CurrentIncident);
-                }
-                
+                incident.DateOpened = DateTime.Now;
+                context.Incidents.Add(incident);
                 context.SaveChanges();
-                
-                return RedirectToAction("IncidentManager");
+                return RedirectToAction("Incident");
             }
-
-            // If ModelState is not valid, return to the same view with the viewModel
-            viewModel.Customers = context.Customers.ToList();
-            viewModel.Products = context.Products.ToList();
-            viewModel.Technicians = context.Technicians.ToList();
-            return View(viewModel);
+            else
+            {
+                ViewBag.Action = "Add";
+                PopulateDropdowns();
+                return View("Add", incident);
+            }
         }
 
         [HttpGet]
-        public IActionResult DeleteIncident(int id)
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Action = "Edit";
+            PopulateDropdowns();
+            var incident = context.Incidents.Find(id);
+            return View("Edit", incident);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Incident incident)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Incidents.Update(incident);
+                context.SaveChanges();
+                return RedirectToAction("Incident");
+            }
+            else
+            {
+                ViewBag.Action = "Edit";
+                PopulateDropdowns();
+                return View("Edit", incident);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
             var incident = context.Incidents.Find(id);
-            if (incident == null)
-            {
-                return NotFound();
-            }
-
             return View(incident);
         }
 
-        [HttpPost, ActionName("DeleteIncident")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public IActionResult Delete(Incident incident)
         {
-            var incident = context.Incidents.Find(id);
-            if (incident == null)
-            {
-                return NotFound();
-            }
-
             context.Incidents.Remove(incident);
             context.SaveChanges();
-            return RedirectToAction("IncidentManager");
+            return RedirectToAction("Incident");
+        }
+
+        private void PopulateDropdowns()
+        {
+            ViewBag.Customers = context.Customers.ToList();
+            ViewBag.Products = context.Products.ToList();
+            ViewBag.Technicians = context.Technicians.ToList();
         }
     }
 

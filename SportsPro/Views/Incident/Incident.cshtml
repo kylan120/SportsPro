@@ -22,7 +22,7 @@
         {
             <tr>
                 <td>@incident.Title</td>
-                <td>@($"{incident.Customer.FirstName} {incident.Customer.LastName}")</td>
+                <td>@incident.Customer.FullName</td>
                 <td>@incident.Product.Name</td>
                 <td>@incident.DateOpened.Date.ToShortDateString()</td>
                 <td>
