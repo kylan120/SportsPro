@@ -17,9 +17,13 @@ namespace SportsPro.Controllers
         }
 
         [Route("incidents")]
-        public IActionResult List()
+        public IActionResult Incident()
         {
-            var incident = context.Incidents.ToList();
+            
+            var incident = context.Incidents
+                .Include(c => c.Customer).
+                Include(p => p.Product).
+                Include(t => t.Technician).ToList();
             return View(incident);
         }
 
