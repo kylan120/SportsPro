@@ -15,7 +15,7 @@ namespace SportsPro.Controllers
         {
             context = ctx;
         }
-        [Route("Incident")]
+        [Route("incidents")]
         public IActionResult Incident()
         {
             var incidents = context.Incidents
