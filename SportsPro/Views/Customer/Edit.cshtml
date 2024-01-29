@@ -1,6 +1,7 @@
 ﻿@model Customer
 
 @{
+    Layout = "_AddEditLayout";
     string title = ViewBag.Action + " Customer";
     ViewBag.Title = title;
 }
@@ -42,12 +43,10 @@
 
     <div class="form-group">
         <label asp-for="CountryID">Country</label>
-        <select asp-for="CountryID" class="form-control">
+        <select asp-for="CountryID"
+                asp-items="@(new SelectList(ViewBag.Countries, "CountryID", "Name",
+                                Model.CountryID.ToString()))" class="form-control">
             <option value="">select a country</option>
-            @foreach (Country c in ViewBag.Countries)
-            {
-                <option value="@c.CountryID">@c.Name</option>
-            }
         </select>
     </div>
 
