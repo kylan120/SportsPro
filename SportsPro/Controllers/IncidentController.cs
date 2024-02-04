@@ -26,7 +26,56 @@ namespace SportsPro.Controllers
 
             return View(incidents);
         }
+        
+        [HttpGet]
+        public IActionResult EditIncident(int id)
+        {
+            var incident = context.Incidents.Find(id);
+            if (incident == null)
+            {
+                return NotFound();
+            }
 
+            var viewModel = new AddEditViewModel
+            {
+                Customers = context.Customers.ToList(),
+                Products = context.Products.ToList(),
+                Technicians = context.Technicians.ToList(),
+                CurrentIncident = incident,
+                Operation = "Edit" 
+            };
+
+            return View("AddOrEdit", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddOrEditIncident(AddEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (viewModel.Operation == "Add")
+                {
+                    context.Incidents.Add(viewModel.CurrentIncident);
+                }
+                else if (viewModel.Operation == "Edit")
+                {
+                    context.Incidents.Update(viewModel.CurrentIncident);
+                }
+
+                context.SaveChanges();
+
+                return RedirectToAction("Incident");
+            }
+
+            // If ModelState is not valid, return to the same view with the viewModel
+            viewModel.Customers = context.Customers.ToList();
+            viewModel.Products = context.Products.ToList();
+            viewModel.Technicians = context.Technicians.ToList();
+            return View("AddOrEdit", viewModel);
+        }
+        
+        /*
         [HttpGet]
         public IActionResult Add()
         {
@@ -78,7 +127,7 @@ namespace SportsPro.Controllers
                 return View("Edit", incident);
             }
         }
-
+        */
         [HttpGet]
         public IActionResult Delete(int id)
         {
