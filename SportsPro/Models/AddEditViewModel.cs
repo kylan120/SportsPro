@@ -8,7 +8,7 @@ namespace SportsPro.Models
         public List<Product> Products { get; set; }
         public List<Technician> Technicians { get; set; }
         public Incident CurrentIncident { get; set; }
-        public string Operation { get; set; } // Indicates whether it's an Add or Edit operation
+        public string Operation { get; set; }
     }
 
 }

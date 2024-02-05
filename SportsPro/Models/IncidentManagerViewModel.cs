@@ -6,6 +6,9 @@ namespace SportsPro.Models
     {
         public List<Incident> Incidents { get; set; }
         public string Filter { get; set; }
+
+        public string CheckActiveCategory(string category) =>
+            category == Filter ? "active" : "";
     }
 
 }
