@@ -34,7 +34,10 @@ namespace SportsPro.Controllers
 
             return View(model);
         }
-        
+        public IActionResult ListByTech()
+        {
+            return View();
+        }
        
         
         
