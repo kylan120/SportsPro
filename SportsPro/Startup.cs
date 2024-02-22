@@ -21,6 +21,8 @@ namespace SportsPro
         // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
+            services.AddSession();
             services.AddControllersWithViews();
 
             services.AddDbContext<SportsProContext>(options =>
@@ -52,6 +54,7 @@ namespace SportsPro
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
