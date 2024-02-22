@@ -30,7 +30,19 @@ namespace SportsPro.Models
             session.SetObject(Incident, incidents);
         }
 
+        public List<Customer> GetCustomer() =>
+           session.GetObject<List<Customer>>(Customer) ?? new List<Customer>();
+        public void SetCustomer(List<Customer> customers)
+        {
+            session.SetObject(Customer, customers);
+        }
 
+        public List<Product> GetProduct() =>
+           session.GetObject<List<Product>>(Product) ?? new List<Product>();
+        public void SetProduct(List<Product> products)
+        {
+            session.SetObject(Product, products);
+        }
 
     }
 }
