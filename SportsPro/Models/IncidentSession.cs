@@ -23,6 +23,12 @@ namespace SportsPro.Models
         {
             session.SetObject(Technician, technicians);
         }
+        public List<Incident> GetIncident() =>
+           session.GetObject<List<Incident>>(Incident) ?? new List<Incident>();
+        public void SetIncident(List<Incident> incidents)
+        {
+            session.SetObject(Incident, incidents);
+        }
 
 
 
