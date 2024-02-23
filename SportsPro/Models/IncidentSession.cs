@@ -44,5 +44,11 @@ namespace SportsPro.Models
             session.SetObject(Product, products);
         }
 
+        public void RemoveIncidents()
+        {
+            session.Remove(Incident);
+
+        }
+
     }
 }
