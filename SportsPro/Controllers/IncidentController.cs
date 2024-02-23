@@ -45,19 +45,19 @@ namespace SportsPro.Controllers
                .Include(i => i.Product)
                .Include(i => i.Technician)
                .ToList();
+            
             var session = new IncidentSession(HttpContext.Session);
             var model = new IncidentManagerViewModel
             {
-                Incidents = session.GetIncident(),
-                Technicians = session.GetTechnicians(),
-                Customers = session.GetCustomer(),
-                Products = session.GetProduct()
-                    
-
+                Technicians = context.Technicians.ToList(),
+                TechnicianID = session.GetTechID 
 
             };
+          
+            
             return View(model);
         }
+
        
         
         

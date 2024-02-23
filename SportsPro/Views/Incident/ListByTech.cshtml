@@ -3,17 +3,21 @@
 @{
     ViewData["Title"] = "TechnicianIncident";
     var session = new IncidentSession(Context.Session);
+
 }
-<form method="get">
+<form method="post">
     <div class="row">
-        <label asp-for="Incidents">Technicians</label>
-        <select asp-for="Incidents" class="form-control">
+        <h1><label asp-for="TechnicianID">Technicians</label></h1>
+        <select asp-for="TechnicianID" class="form-control">
             <option value="">Technican</option>
-            @foreach (var i in Model.Incidents)
+            @foreach (Technician i in Model.Technicians )
             {
-                <option value="@i.TechnicianID">@i.Technician</option>
+                <option value="@i.TechnicianID">@i.Name</option>
+               
             }
         </select>
     </<div>
+
+            <button type="submit" class="btn btn-primary">Select</button>
 </form>
 
