@@ -1,1 +1,19 @@
-﻿
+﻿@model IncidentManagerViewModel
+
+@{
+    ViewData["Title"] = "TechnicianIncident";
+    var session = new IncidentSession(Context.Session);
+}
+<form method="get">
+    <div class="row">
+        <label asp-for="Incidents">Technicians</label>
+        <select asp-for="Incidents" class="form-control">
+            <option value="">Technican</option>
+            @foreach (var i in Model.Incidents)
+            {
+                <option value="@i.TechnicianID">@i.Technician</option>
+            }
+        </select>
+    </<div>
+</form>
+

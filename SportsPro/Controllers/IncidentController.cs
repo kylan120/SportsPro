@@ -35,9 +35,28 @@ namespace SportsPro.Controllers
 
             return View(model);
         }
-        public IActionResult ListByTech()
+
+        [Route("TechnicianIncident")]
+        [HttpGet]
+        public ViewResult ListByTech()
         {
-            return View();
+            var incidents = context.Incidents
+               .Include(i => i.Customer)
+               .Include(i => i.Product)
+               .Include(i => i.Technician)
+               .ToList();
+            var session = new IncidentSession(HttpContext.Session);
+            var model = new IncidentManagerViewModel
+            {
+                Incidents = session.GetIncident(),
+                Technicians = session.GetTechnicians(),
+                Customers = session.GetCustomer(),
+                Products = session.GetProduct()
+                    
+
+
+            };
+            return View(model);
         }
        
         
