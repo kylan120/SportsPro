@@ -59,32 +59,38 @@ namespace SportsPro.Controllers
         }
 
         [HttpPost]
-        public IActionResult IncidentByTech()
+        public IActionResult IncidentByTech(IncidentManagerViewModel model)
         {
-            var incidents = context.Incidents
-               .Include(i => i.Customer)
-               .Include(i => i.Product)
-               .Include(i => i.Technician)
-               .ToList();
-
-            var tech = context.Technicians.ToList();
-
-            var session = new IncidentSession(HttpContext.Session);
-            var model = new IncidentManagerViewModel
+            
+            if (model.TechnicianID != null)
             {
-                TechnicianID = session.GetTechID,
-                Incidents = incidents,
-                Technicians = tech
+               
+                var incidents = context.Incidents
+                    .Include(i => i.Customer)
+                    .Include(i => i.Product)
+                    .Include(i => i.Technician)
+                    .Where(i => i.TechnicianID == model.TechnicianID)
+                    .ToList();
+
+                var session = new IncidentSession(HttpContext.Session);
+
+                var updatedModel = new IncidentManagerViewModel
+                {
+                    TechnicianID = model.TechnicianID,
+                    Incidents = incidents,
+                    Technicians = context.Technicians.ToList()
+                };
+
+                return View(updatedModel);
+            }
+            else
+            {
                 
-
-                
-            };
-           
-
-
-
-            return View(model);
+                ModelState.AddModelError("TechnicianID", "Please select a technician.");
+                return View("ListByTech", model);
+            }
         }
+
 
 
 
