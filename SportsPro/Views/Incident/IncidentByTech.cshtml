@@ -5,13 +5,7 @@
     var session = new IncidentSession(Context.Session);
 }
 
-@if (session.GetTechID != null)
-{
-    <h1>Technician: @Model.Technicians.FirstOrDefault(t => t.TechnicianID == Model.TechnicianID)?.Name</h1>
-
-    @if (Model.Incidents.Any())
-    {
-        <table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -33,13 +27,5 @@
                 }
             </tbody>
         </table>
-    }
-    else
-    {
-        <h2>No incidents assigned to the selected technician.</h2>
-    }
-}
-else
-{
-    <h1>Nothing was displayed</h1>
-}
+    
+   

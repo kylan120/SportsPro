@@ -32,10 +32,10 @@ namespace SportsPro.Models
             session.SetObject(Technician, technicians);
            
         }
-       
-        public List<Incident> GetIncident() =>
-           session.GetObject<List<Incident>>(Incident) ?? new List<Incident>();
-        public void SetIncident(List<Incident> incidents)
+
+        public int? GetIncident() => session.GetInt32(Incident);
+          
+        public void SetIncident(Incident incidents)
         {
             session.SetObject(Incident, incidents);
         }
@@ -43,6 +43,8 @@ namespace SportsPro.Models
         public void RemoveIncidents()
         {
             session.Remove(Incident);
+            session.Remove(TechIDKey);
+            session.Remove(Technician);
 
         }
 
