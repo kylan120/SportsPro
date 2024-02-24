@@ -5,29 +5,41 @@
     var session = new IncidentSession(Context.Session);
 }
 
-@if(session.GetTechID != null)
+@if (session.GetTechID != null)
 {
-    <h1>@(session.GetTechID)</h1>
-   <table class="table table-bordered table-striped">
-       <thead>
-           <tr>
-               <th>Title</th>
-               <th>Customer</th>
-               <th>Product</th>
-               <th>Date Opened</th>
-               <th></th>
-           </tr>
-       </thead>
-       <tbody>
-            @foreach(var i in Model.Incidents)
-            {
+    <h1>Technician: @Model.Technicians.FirstOrDefault(t => t.TechnicianID == Model.TechnicianID)?.Name</h1>
+
+    @if (Model.Incidents.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
                 <tr>
-                    <td>@i.Description</td>
-                    <td>@i.Customer.FullName</td>
-                    <td>@i.Product.Name</td>
-                    <td>@i.DateOpened</td>
+                    <th>Title</th>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Date Opened</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-   </table>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.Incidents)
+                {
+                    <tr>
+                        <td>@i.Description</td>
+                        <td>@i.Customer.FullName</td>
+                        <td>@i.Product.Name</td>
+                        <td>@i.DateOpened</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>No incidents assigned to the selected technician.</h2>
+    }
+}
+else
+{
+    <h1>Nothing was displayed</h1>
 }

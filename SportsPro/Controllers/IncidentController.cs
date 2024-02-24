@@ -58,28 +58,32 @@ namespace SportsPro.Controllers
             return View(model);
         }
 
-        public ViewResult IncidentByTech()
+        [HttpPost]
+        public IActionResult IncidentByTech(IncidentManagerViewModel model)
         {
-            var incidents = context.Incidents
-               .Include(i => i.Customer)
-               .Include(i => i.Product)
-               .Include(i => i.Technician)
-               .ToList();
-
-            var session = new IncidentSession(HttpContext.Session);
-            var model = new IncidentManagerViewModel
+            if (model.TechnicianID != null)
             {
-                Technicians = context.Technicians.ToList(),
-                TechnicianID = session.GetTechID
+                var incidents = context.Incidents
+                    .Include(i => i.Customer)
+                    .Include(i => i.Product)
+                    .Include(i => i.Technician)
+                    .Where(i => i.TechnicianID == model.TechnicianID)
+                    .ToList();
 
-            };
+                model.Incidents = incidents;
+            }
+            else
+            {
+                
+                model.Incidents = new List<Incident>();
+            }
 
             return View(model);
         }
 
-       
-        
-        
+
+
+
         [HttpGet]
         public IActionResult Add()
         {
