@@ -1,0 +1,33 @@
+﻿@model IncidentManagerViewModel
+
+@{
+    ViewData["Title"] = "Incident By Tech";
+    var session = new IncidentSession(Context.Session);
+}
+
+@if(session.GetTechID != null)
+{
+    <h1>@(session.GetTechID)</h1>
+   <table class="table table-bordered table-striped">
+       <thead>
+           <tr>
+               <th>Title</th>
+               <th>Customer</th>
+               <th>Product</th>
+               <th>Date Opened</th>
+               <th></th>
+           </tr>
+       </thead>
+       <tbody>
+            @foreach(var i in Model.Incidents)
+            {
+                <tr>
+                    <td>@i.Description</td>
+                    <td>@i.Customer.FullName</td>
+                    <td>@i.Product.Name</td>
+                    <td>@i.DateOpened</td>
+                </tr>
+            }
+        </tbody>
+   </table>
+}

@@ -58,6 +58,25 @@ namespace SportsPro.Controllers
             return View(model);
         }
 
+        public ViewResult IncidentByTech()
+        {
+            var incidents = context.Incidents
+               .Include(i => i.Customer)
+               .Include(i => i.Product)
+               .Include(i => i.Technician)
+               .ToList();
+
+            var session = new IncidentSession(HttpContext.Session);
+            var model = new IncidentManagerViewModel
+            {
+                Technicians = context.Technicians.ToList(),
+                TechnicianID = session.GetTechID
+
+            };
+
+            return View(model);
+        }
+
        
         
         
