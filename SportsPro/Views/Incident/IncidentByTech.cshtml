@@ -1,20 +1,23 @@
 ﻿@model IncidentManagerViewModel
 
 @{
-    ViewData["Title"] = "Incident By Tech";
+    ViewData["Title"] = "Incidents By Tech";
     var session = new IncidentSession(Context.Session);
 }
-<h1>Technician: @Model.Technicians.FirstOrDefault(t => t.TechnicianID == Model.TechnicianID)?.Name</h1>
 
+@if (Model.TechnicianID != null)
+{
+    <h1>Technician: @Model.Technicians.FirstOrDefault(t => t.TechnicianID == Model.TechnicianID)?.Name</h1>
 
-<table class="table table-bordered table-striped">
+    @if (Model.Incidents.Any())
+    {
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Customer</th>
                     <th>Product</th>
                     <th>Date Opened</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +31,22 @@
                     </tr>
                 }
             </tbody>
-</table>
+        </table>
+    }
+    else
+    {
+        <h2>No open incidents for the selected technician.</h2>
+    }
+
+    <form method="get" asp-controller="Incident" asp-action="ListByTech">
+        <button type="submit" class="btn btn-primary">Switch Technician</button>
+    </form>
+}
+else
+{
+    <h1>No technician selected please select a technician</h1>
+    <form method="get" asp-controller="Incident" asp-action="ListByTech">
+        <button type="submit" class="btn btn-primary">Technician</button>
+    </form>
     
-   
+}

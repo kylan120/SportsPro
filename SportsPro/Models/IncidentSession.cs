@@ -24,6 +24,7 @@ namespace SportsPro.Models
             session.SetInt32(TechIDKey, techID);
         }
 
+
         public int? GetTechID => session.GetInt32(TechIDKey);
 
         public string? GetTechnicain => session.GetString(Technician);            

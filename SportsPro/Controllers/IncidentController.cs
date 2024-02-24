@@ -53,6 +53,7 @@ namespace SportsPro.Controllers
                 TechnicianID = session.GetTechID 
 
             };
+
           
             
             return View(model);
@@ -62,10 +63,7 @@ namespace SportsPro.Controllers
         public IActionResult IncidentByTech(IncidentManagerViewModel model)
         {
             
-            if (model.TechnicianID != null)
-            {
-               
-                var incidents = context.Incidents
+           var incidents = context.Incidents
                     .Include(i => i.Customer)
                     .Include(i => i.Product)
                     .Include(i => i.Technician)
@@ -82,13 +80,8 @@ namespace SportsPro.Controllers
                 };
 
                 return View(updatedModel);
-            }
-            else
-            {
-                
-                ModelState.AddModelError("TechnicianID", "Please select a technician.");
-                return View("ListByTech", model);
-            }
+            
+           
         }
 
 
