@@ -182,7 +182,7 @@ namespace SportsPro.Controllers
             {
                 context.Incidents.Update(incident);
                 context.SaveChanges();
-                return RedirectToAction("IncidentByTech");
+                return RedirectToAction("IncidentByTech", incident);
             }
             else
             {

@@ -7,35 +7,51 @@
 
 <h2>@ViewBag.Title</h2>
 
-<main class="container pl-0">
-    <div class="row mb-3">
-        <div class="col-4">Technician:</div>
-        <div class="col-8">@Model.Technician.Name</div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-4">Customer:</div>
-        <div class="col-8">@Model.Customer.FullName</div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-4">Product:</div>
-        <div class="col-8">@Model.Product.Name</div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-4">Title:</div>
-        <div class="col-8">@Model.Title</div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-4">Date Opened:</div>
-        <div class="col-8">@Model.DateOpened</div>
-    </div>
-</main>
-
 <form asp-action="TechnicianEdit" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
+
+    <main class="container pl-0">
+        <div class="row mb-3">
+            <div class="col-4">Technician:</div>
+            <div class="col-8">@Model.Technician.Name</div>
+            <input type="hidden" asp-for="Technician.Name" />
+            <input type="hidden" asp-for="Technician.Phone" />
+            <input type="hidden" asp-for="Technician.Email" />
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">Customer:</div>
+            <div class="col-8">@Model.Customer.FullName</div>
+            <input type="hidden" asp-for="Customer.FullName" />
+            <input type="hidden" asp-for="Customer.CustomerID" />
+            <input type="hidden" asp-for="Customer.FirstName" />
+            <input type="hidden" asp-for="Customer.LastName" />
+            <input type="hidden" asp-for="Customer.Address" />
+            <input type="hidden" asp-for="Customer.CountryID" />
+            <input type="hidden" asp-for="Customer.City" />
+            <input type="hidden" asp-for="Customer.State" />
+            <input type="hidden" asp-for="Customer.PostalCode" />
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">Product:</div>
+            <div class="col-8">@Model.Product.Name</div>
+            <input type="hidden" asp-for="Product.Name" />
+            <input type="hidden" asp-for="Product.ProductCode" />
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">Title:</div>
+            <div class="col-8">@Model.Title</div>
+            <input type="hidden" asp-for="Title" />
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">Date Opened:</div>
+            <div class="col-8">@Model.DateOpened</div>
+            <input type="hidden" asp-for="DateOpened" />
+        </div>
+    </main>
 
     <div class="form-group">
         <label asp-for="Description">Description</label>
