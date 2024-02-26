@@ -155,6 +155,32 @@ namespace SportsPro.Controllers
             return RedirectToAction("Incident");
         }
 
+        [HttpGet]
+        public IActionResult TechnicianEdit(int id)
+        {
+            ViewBag.Action = "TechnicianEdit";
+            PopulateDropdowns();
+            var incident = context.Incidents.Find(id);
+            return View("Edit", incident);
+        }
+
+        [HttpPost]
+        public IActionResult TechnicianEdit(Incident incident)
+        {
+            if (incident.Description != null)
+            {
+                context.Incidents.Update(incident);
+                context.SaveChanges();
+                return RedirectToAction("IncidentByTech");
+            }
+            else
+            {
+                ViewBag.Action = "TechnicianEdit";
+                PopulateDropdowns();
+                return View("Edit", incident);
+            }
+        }
+
         private void PopulateDropdowns()
         {
             ViewBag.Customers = context.Customers.ToList();
