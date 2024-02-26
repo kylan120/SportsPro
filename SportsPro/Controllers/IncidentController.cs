@@ -20,23 +20,40 @@ namespace SportsPro.Controllers
         
          
         [Route("incidents")]
-        public IActionResult Incident()
+        public IActionResult Incident(string filter = "all")
         {
-            var incidents = context.Incidents
-                .Include(i => i.Customer)
-                .Include(i => i.Product)
-                .Include(i => i.Technician)
-                .ToList();
-            
+            IQueryable<Incident> incidents;
+
+            switch (filter)
+            {
+                case "unassigned":
+                    incidents = context.Incidents
+                        .Where(i => i.TechnicianID == null);
+                    break;
+
+                case "open":
+                    incidents = context.Incidents
+                        .Where(i => i.DateClosed == null);
+                    break;
+
+                default:
+                    incidents = context.Incidents;
+                    break;
+            }
+
             var model = new IncidentManagerViewModel
             {
                 Incidents = incidents
+                    .Include(i => i.Customer)
+                    .Include(i => i.Product)
+                    .Include(i => i.Technician)
+                    .ToList(),
+                Filter = filter
             };
 
             return View(model);
         }
 
-        
         [HttpGet]
         public ViewResult ListByTech()
         {
