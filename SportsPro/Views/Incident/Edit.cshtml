@@ -2,17 +2,7 @@
 
 @{
     Layout = "_AddEditLayout";
-
-    string title = "";
-    if (ViewBag.Action == "TechnicianEdit")
-    {
-        title =  "Edit Incident";
-    }
-    else
-    {
-        title = ViewBag.Action + " Incident";
-    }
-
+    string title = ViewBag.Action + " Incident";
     ViewBag.Title = title;
 }
 
@@ -21,102 +11,55 @@
 <form asp-action="TechnicianEdit" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    @if (ViewBag.Action == "TechnicianEdit")
-    {
-        <main class="container pl-0">
-            <div class="row mb-3">
-                <div class="col-4">Technician:</div>
-                <div class="col-8">@Model.Technician.Name</div>
-            </div>
+    <div class="form-group">
+        <label asp-for="CustomerID">Customer</label>
+        <select asp-for="CustomerID" 
+            asp-items="@(new SelectList(ViewBag.Customers, "CustomerID", "FullName", 
+                                Model.CustomerID.ToString()))" class="form-control">
+            <option value="">Specify the customer...</option>
+        </select>
+    </div>
 
-            <div class="row mb-3">
-                <div class="col-4">Customer:</div>
-                <div class="col-8">@Model.Customer.FullName</div>
-            </div>
+    <div class="form-group">
+        <label asp-for="ProductID">Product</label>
+        <select asp-for="ProductID"
+                asp-items="@(new SelectList(ViewBag.Products, "ProductID", "Name",
+                                Model.ProductID.ToString()))" class="form-control">
+            <option value="">Specify the product...</option>
+        </select>
+    </div>
 
-            <div class="row mb-3">
-                <div class="col-4">Product:</div>
-                <div class="col-8">@Model.Product.Name</div>
-            </div>
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
 
-            <div class="row mb-3">
-                <div class="col-4">Title:</div>
-                <div class="col-8">@Model.Title</div>
-            </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
 
-            <div class="row mb-3">
-                <div class="col-4">Date Opened:</div>
-                <div class="col-8">@Model.DateOpened</div>
-            </div>
-        </main>
+    <div class="form-group">
+        <label asp-for="TechnicianID">Technician</label>
+        <select asp-for="TechnicianID"
+                asp-items="@(new SelectList(ViewBag.Technicians, "TechnicianID", "Name",
+                                Model.TechnicianID.ToString()))" class="form-control">
+            <option value="">Assign a technician...</option>
+        </select>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="Description">Description</label>
-            <input asp-for="Description" class="form-control" />
-        </div>
+    <div class="form-group">
+        <label asp-for="DateOpened">Date Opened</label>
+        <input asp-for="DateOpened" class="form-control" />
+    </div>
 
-        <div class="form-group">
-            <label asp-for="DateClosed">Date Closed</label>
-            <input asp-for="DateClosed" class="form-control" />
-        </div>
+    <div class="form-group">
+        <label asp-for="DateClosed">Date Closed</label>
+        <input asp-for="DateClosed" class="form-control" />
+    </div>
 
-        <input type="hidden" asp-for="IncidentID" />
+    <input type="hidden" asp-for="IncidentID" />
 
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a asp-controller="Incident" asp-action="Incident" class="btn btn-primary">Cancel</a>
-    }
-    else
-    {
-        <div class="form-group">
-            <label asp-for="CustomerID">Customer</label>
-            <select asp-for="CustomerID" 
-                asp-items="@(new SelectList(ViewBag.Customers, "CustomerID", "FullName", 
-                                    Model.CustomerID.ToString()))" class="form-control">
-                <option value="">Specify the customer...</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="ProductID">Product</label>
-            <select asp-for="ProductID"
-                    asp-items="@(new SelectList(ViewBag.Products, "ProductID", "Name",
-                                    Model.ProductID.ToString()))" class="form-control">
-                <option value="">Specify the product...</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Title">Title</label>
-            <input asp-for="Title" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Description">Description</label>
-            <input asp-for="Description" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="TechnicianID">Technician</label>
-            <select asp-for="TechnicianID"
-                    asp-items="@(new SelectList(ViewBag.Technicians, "TechnicianID", "Name",
-                                    Model.TechnicianID.ToString()))" class="form-control">
-                <option value="">Assign a technician...</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="DateOpened">Date Opened</label>
-            <input asp-for="DateOpened" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="DateClosed">Date Closed</label>
-            <input asp-for="DateClosed" class="form-control" />
-        </div>
-
-        <input type="hidden" asp-for="IncidentID" />
-
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a asp-controller="Incident" asp-action="Incident" class="btn btn-primary">Cancel</a>
-    }
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-controller="Incident" asp-action="Incident" class="btn btn-primary">Cancel</a>
 </form>
