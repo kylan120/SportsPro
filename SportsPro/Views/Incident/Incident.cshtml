@@ -6,11 +6,12 @@
 
 <h2>@ViewBag.Title</h2>
 
-<ul class="nav nav-pills">
-<li class="active"><a href="#">All Incidents</a></li>
-<li><a href="#">Unassigned Incidents</a></li>
-<li><a href="#">Open Incidents</a></li>
-</ul>
+<div class="nav nav-pills mb-3">
+    <a class="nav-item nav-link" asp-action="Incident">All Incidents</a>
+    <a class="btn btn-primary" asp-action="Incident">Unassigned Incidents</a>
+    <a class="nav-item nav-link" asp-action="Incident">Open Incidents</a>
+</div>
+
 
 <table class="table table-bordered table-striped">
     <thead>
