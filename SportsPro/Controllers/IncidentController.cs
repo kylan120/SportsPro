@@ -97,13 +97,7 @@ namespace SportsPro.Controllers
                 };
 
                 return View(updatedModel);
-            
-           
         }
-
-
-
-
 
         [HttpGet]
         public IActionResult Add()
