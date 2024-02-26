@@ -36,7 +36,7 @@ namespace SportsPro.Controllers
             return View(model);
         }
 
-        [Route("TechnicianIncident")]
+        
         [HttpGet]
         public ViewResult ListByTech()
         {
@@ -167,7 +167,7 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult TechnicianEdit(Incident incident)
         {
-            if (incident.Description != null)
+            if (ModelState.IsValid)
             {
                 context.Incidents.Update(incident);
                 context.SaveChanges();
@@ -180,6 +180,7 @@ namespace SportsPro.Controllers
                 return View("Edit", incident);
             }
         }
+
 
         private void PopulateDropdowns()
         {
