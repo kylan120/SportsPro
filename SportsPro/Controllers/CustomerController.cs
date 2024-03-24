@@ -25,6 +25,11 @@ namespace SportsPro.Controllers
         {
             ViewBag.Action = "Edit";
             var customer = context.Customers.Find(id);
+            if(customer == null)
+            {
+                return NotFound();
+
+            }
             ViewBag.Countries = context.Countries.OrderBy(c => c.Name).ToList();
             return View(customer);
         }
