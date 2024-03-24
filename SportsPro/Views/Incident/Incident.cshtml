@@ -7,11 +7,10 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="nav nav-pills mb-3">
-    <a class="nav-item nav-link" asp-action="Incident">All Incidents</a>
-    <a class="btn btn-primary" asp-action="Incident">Unassigned Incidents</a>
-    <a class="nav-item nav-link" asp-action="Incident">Open Incidents</a>
+    <a class="nav-item nav-link @(Model.CheckActiveCategory("all"))" asp-action="Incident" asp-route-filter="all">All Incidents</a>
+    <a class="nav-item nav-link @(Model.CheckActiveCategory("unassigned"))" asp-action="Incident" asp-route-filter="unassigned">Unassigned Incidents</a>
+    <a class="nav-item nav-link @(Model.CheckActiveCategory("open"))" asp-action="Incident" asp-route-filter="open">Open Incidents</a>
 </div>
-
 
 <table class="table table-bordered table-striped">
     <thead>
