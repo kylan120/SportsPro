@@ -15,6 +15,8 @@ namespace SportsPro.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Incident> Incidents { get; set; }
 
+        public DbSet<RegistrationModel> Registrations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().HasData(
@@ -306,6 +308,11 @@ namespace SportsPro.Models
                     DateClosed = null
                 }
             );
+            modelBuilder.Entity<RegistrationModel>(entity =>
+            {
+                entity.ToTable("Registrations"); // Ensure proper table mapping
+                entity.HasKey(e => e.RegistrationID); // Define primary key
+            });
         }
     }
 }

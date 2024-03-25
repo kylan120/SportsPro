@@ -49,5 +49,7 @@ namespace SportsPro.Models
         public string FullName => FirstName + " " + LastName;
 
         public ICollection<Incident> Incidents { get; set; }
+
+        public ICollection<RegistrationModel> Registrations { get; set; }
     }
 }

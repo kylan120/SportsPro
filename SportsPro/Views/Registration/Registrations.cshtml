@@ -1,0 +1,20 @@
+﻿@model IEnumerable<RegistrationModel>
+
+<h2>Registrations for @ViewBag.CustomerName</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Registration Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var registration in Model)
+        {
+            <tr>
+                <td>@registration.Product.Name</td>
+                <td>@registration.RegistrationDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
