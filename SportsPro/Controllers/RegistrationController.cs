@@ -26,20 +26,26 @@ namespace SportsPro.Controllers
 
         public IActionResult Registrations(int customerId)
         {
+            var customer = _context.Customers.FirstOrDefault(c => c.CustomerID == customerId);
+            if (customer == null)
+            {
+                ModelState.AddModelError("customerID", "Please select a customer");
+                var customers = _context.Customers.ToList();
+                return View("GetCustomer", customers);
+            }
+
+            ViewBag.CustomerName = customer.FullName;
+            ViewBag.Products = _context.Products.ToList(); // Populate ViewBag.Products with the list of products
+            HttpContext.Session.SetInt32("CustomerId", customerId);
+
             var registrations = _context.Registrations
                 .Include(r => r.Product)
                 .Where(r => r.CustomerID == customerId)
                 .ToList();
 
-            var customer = _context.Customers.FirstOrDefault(c => c.CustomerID == customerId);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            ViewBag.CustomerName = customer.FullName;
             return View(registrations);
         }
+
 
 
         // GetRegistrations action to display Registrations page after selecting a customer
@@ -54,10 +60,14 @@ namespace SportsPro.Controllers
 
             HttpContext.Session.SetInt32("CustomerId", customerId);
 
-            var products = _context.Products.ToList();
-            ViewBag.Products = products;
-            return View("Registrations", Tuple.Create(customer, customer.Registrations.Select(r => r.Product)));
+            var registrations = _context.Registrations
+                .Include(r => r.Product)
+                .Where(r => r.CustomerID == customerId)
+                .ToList();
+
+            return View(registrations);
         }
+
 
         // RegisterProduct action to handle registration of a new product for the selected customer
         [HttpPost]
@@ -72,14 +82,39 @@ namespace SportsPro.Controllers
             var registration = new RegistrationModel
             {
                 CustomerID = customerId.Value,
-                ProductID = productId
+                ProductID = productId,
+                RegistrationDate = DateTime.Now // Set the registration date to the current date/time
             };
 
             _context.Registrations.Add(registration);
             _context.SaveChanges();
 
-            return RedirectToAction("GetRegistrations", new { customerId });
+            // Redirect to the Registrations action with the selected customerId
+            return RedirectToAction("Registrations", new { customerId });
         }
+
+        
+        [HttpPost]
+        public IActionResult Delete(int registrationID)
+        {
+            var registration = _context.Registrations.FirstOrDefault(r => r.RegistrationID == registrationID);
+            if(registration == null)
+            {
+                return NotFound();
+            }
+
+            _context.Registrations.Remove(registration);
+            _context.SaveChanges();
+
+            var customerId = HttpContext.Session.GetInt32("CustomerId");
+            if (customerId == null)
+            {
+                return RedirectToAction("GetCustomer");
+            }
+
+            return RedirectToAction("Registrations", new { customerId });
+        }
+
     }
 
 }

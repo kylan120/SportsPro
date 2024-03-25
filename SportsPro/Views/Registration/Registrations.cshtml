@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<RegistrationModel>
 
+@{
+    ViewData["Title"] = "Registrations";
+}
+
 <h2>Registrations for @ViewBag.CustomerName</h2>
-<table>
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Product Name</th>
-            <th>Registration Date</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -13,8 +17,25 @@
         {
             <tr>
                 <td>@registration.Product.Name</td>
-                <td>@registration.RegistrationDate</td>
+                <td>
+                    <form asp-controller="Registration" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure?')";>
+                        <input type="hidden" name="registrationID" value="@registration.RegistrationID" />
+                        <button type="submit" class="btn btn-danger"> Delete</button>
+                    </form>
+                </td>
             </tr>
+
         }
     </tbody>
 </table>
+
+<h3>Register New Product</h3>
+<form asp-controller="Registration" asp-action="RegisterProduct" method="post">
+    <select name="productId">
+        @foreach (var product in ViewBag.Products)
+        {
+            <option value="@product.ProductID">@product.Name</option>
+        }
+    </select>
+    <input type="submit" value="Register" />
+</form>
